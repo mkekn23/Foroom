@@ -17,8 +17,6 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.not
 
 class LoginPage {
-
-    // The same child ids are reused inside every Input component, so each one is scoped to its parent.
     private fun inputChild(parentId: Int, childId: Int): Matcher<View> =
         allOf(withId(childId), isDescendantOfA(withId(parentId)))
 
@@ -52,7 +50,6 @@ class LoginPage {
         onView(passwordInput).check(matches(isDisplayed()))
     }
 
-    // Login runs asynchronously, so the error text is awaited rather than asserted immediately.
     fun checkUsernameErrorDisplayed() {
         onView(usernameError).waitUntilVisible(WAIT_SEC).check(matches(not(withText(""))))
     }
