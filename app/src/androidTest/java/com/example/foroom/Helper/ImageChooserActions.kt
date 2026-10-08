@@ -3,8 +3,6 @@ package com.example.foroom.Helper
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
-import androidx.test.espresso.ViewInteraction
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.BoundedMatcher
 import com.example.design_system.components.image_chooser.ImageChooserItemView
 import com.example.design_system.components.image_chooser.ImageChooserListView
@@ -36,18 +34,3 @@ fun imageChooserItemAt(position: Int): Matcher<View> =
             return items.filterIsInstance<ImageChooserItemView>().toList().indexOf(item) == position
         }
     }
-
-fun ViewInteraction.waitUntilMatches(matcher: Matcher<View>, timeoutSec: Long = 10): ViewInteraction {
-    val deadline = System.currentTimeMillis() + timeoutSec * 1000
-    while (true) {
-        try {
-            check(matches(matcher))
-            return this
-        } catch (e: Exception) {
-            if (System.currentTimeMillis() > deadline) throw e
-        } catch (e: AssertionError) {
-            if (System.currentTimeMillis() > deadline) throw e
-        }
-        Thread.sleep(100)
-    }
-}
